@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Flow AI Assistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      margin: 0;
+      background: #0f172a;
+      color: #f8fafc;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .App {
+      max-width: 700px;
+      margin: 30px auto;
+      background: #1e293b;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .header {
+      background: #0ea5e9;
+      text-align: center;
+      padding: 30px;
+    }
+    .header img {
+      width: 160px;
+      border-radius: 12px;
+    }
+    .chat-box {
+      padding: 20px;
+      height: 420px;
+      overflow-y: auto;
+    }
+    .message {
+      margin-bottom: 16px;
+    }
+    .message.bot p {
+      background: #334155;
+      padding: 14px;
+      border-radius: 14px;
+      display: inline-block;
+      max-width: 80%;
+    }
+    .message.user p {
+      background: #0ea5e9;
+      color: white;
+      padding: 14px;
+      border-radius: 14px;
+      display: inline-block;
+      float: right;
+      max-width: 80%;
+    }
+    .input-area {
+      display: flex;
+      gap: 10px;
+      padding: 20px;
+      background: #1e293b;
+      border-top: 1px solid #475569;
+    }
+    input {
+      flex-grow: 1;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 1rem;
+      background: #334155;
+      border: none;
+      color: #f1f5f9;
+    }
+    button {
+      background: #0ea5e9;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="App">
+    <div class="header">
+      <img src="logo.png" alt="Flow AI Logo" />
+      <h1>Flow AI Assistant</h1>
+    </div>
+    <div class="chat-box" id="chat-box">
+      <div class="message bot"><strong>AI:</strong><p>Welcome, Rodrigo. How can I help you today?</p></div>
+    </div>
+    <div class="input-area">
+      <input id="user-input" placeholder="Type something..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
