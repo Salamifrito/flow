@@ -1,40 +1,39 @@
-const chatBox = document.getElementById('chat-box');
-const input = document.getElementById('user-input');
-const sendButton = document.querySelector('button');
-
-function appendMessage(sender, message) {
-  const messageDiv = document.createElement('div');
-  messageDiv.className = `message ${sender === 'You' ? 'user' : 'bot'}`;
-  messageDiv.innerHTML = `<p><strong>${sender}:</strong> ${message}</p>`;
-  chatBox.appendChild(messageDiv);
-  chatBox.scrollTop = chatBox.scrollHeight;
-}
-
 async function sendMessage() {
+  const input = document.getElementById('user-input');
   const text = input.value.trim();
   if (!text) return;
 
-  appendMessage('You', text);
+  const chatBox = document.getElementById('chat-box');
+
+  const userMessage = document.createElement('div');
+  userMessage.className = 'message user';
+  userMessage.innerHTML = `<p>${text}</p>`;
+  chatBox.appendChild(userMessage);
+
   input.value = '';
+  chatBox.scrollTop = chatBox.scrollHeight;
 
-  const response = await fetch('https://flow-so3g.vercel.app/api/message', {
+  try {
+    const res = await fetch('/api/message', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message: text })
+    });
 
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: text })
-  });
+    const data = await res.json();
 
-  const data = await response.json();
-  appendMessage('AI', data.reply);
-}
-
-// Allow pressing Enter to send
-input.addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    sendMessage();
+    const botMessage = document.createElement('div');
+    botMessage.className = 'message bot';
+    botMessage.innerHTML = `<strong>AI:</strong><p>${data.message}</p>`;
+    chatBox.appendChild(botMessage);
+    chatBox.scrollTop = chatBox.scrollHeight;
+  } catch (err) {
+    console.error('Error:', err);
+    const botMessage = document.createElement('div');
+    botMessage.className = 'message bot';
+    botMessage.innerHTML = `<strong>AI:</strong><p>Sorry, I’m having trouble responding.</p>`;
+    chatBox.appendChild(botMessage);
   }
-});
-
-// Also support the Send button
-sendButton.addEventListener('click', sendMessage);
+}
