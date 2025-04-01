@@ -17,7 +17,8 @@ async function sendMessage() {
   appendMessage('You', text);
   input.value = '';
 
-  const response = await fetch('/api/message', {
+  const response = await fetch('https://flow-so3g.vercel.app/api/message', {
+
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message: text })
