@@ -14,7 +14,8 @@ async function sendMessage() {
   chatBox.scrollTop = chatBox.scrollHeight;
 
   try {
-    const res = await fetch('/api/message', {
+    const res = await fetch('https://flow-so3g.vercel.app/api/message', {
+
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
